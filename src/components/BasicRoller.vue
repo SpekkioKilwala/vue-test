@@ -1,10 +1,17 @@
 <script setup lang="ts">
-// script goes here
+import { ref } from 'vue'
+
+const count = ref(0)
+
+function increment() {
+  count.value++
+}
+
 </script>
 
 <template>
   <div class="roller">
-      A button goes here.
+      <button @click="increment">Count is: {{ count }}</button>
   </div>
 </template>
 
