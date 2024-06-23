@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { DiceRoll } from '@dice-roller/rpg-dice-roller'
+// docs: https://www.npmjs.com/package/@dice-roller/rpg-dice-roller
 
 const result = ref(0)
 
