@@ -5,32 +5,53 @@ import { default as EloRank } from 'elo-rank'
 
 // docs: https://www.npmjs.com/package/@dice-roller/rpg-dice-roller
 
-const result = ref(0)
+const resultA = ref(0)
+const resultB = ref(0)
 
-function newRoll() {
-  const roll = new DiceRoll('2d6');
-  result.value = roll.total;
-}
+const contestSummary = ref('')
 
 const elo = new EloRank(32);
-let playerA = 1200;
-let playerB = 1400;
+const playerA = ref(1000); // you
+const playerB = ref(1500); // infinite supply of Computer players
 
-let expectedScoreA = elo.getExpected(playerA, playerB);
-let expectedScoreB = elo.getExpected(playerB, playerA);
- 
-//update score, 1 if won 0 if lost
-playerA = elo.updateRating(expectedScoreA, 1, playerA);
-playerB = elo.updateRating(expectedScoreB, 0, playerB);
+// A single function should not oversee the rolling and the 0-1 rescaling
+// TODO: split it back up
+function contest(rollA: string, rollB: string) {
+  // accepting two dice roll inputs ('2d6' and '2d6+2')
+  // and returns which one won
+  // 1 if A won, 0.5 if a draw, and 0 if B won.
+  resultA.value = new DiceRoll(rollA).total
+  resultB.value = new DiceRoll(rollB).total
+  if (resultA.value > resultB.value) {
+    return 1
+  }
+  else if (resultA.value == resultB.value) {
+    return 0.5
+  }
+  else {
+    return 0
+  }
+}
 
-console.log(`Scores of players A, B: ${playerA}, ${playerB}`)
+function playRound() {
+  const contestOutcome = contest('2d6', '2d6+2')
+
+  let expectedScoreA = elo.getExpected(playerA.value, playerB.value);
+  let expectedScoreB = elo.getExpected(playerB.value, playerA.value);
+
+  //update score, 1 if won 0 if lost
+  playerA.value = elo.updateRating(expectedScoreA, contestOutcome, playerA.value);
+  // playerB = elo.updateRating(expectedScoreB, 0, playerB);
+}
+
 
 </script>
 
 <template>
   <div class="roller">
-    <button @click="newRoll">Roll them bones</button>
-    Result: {{ result }}
+    <button @click="playRound">Roll them bones</button>
+    <div>Combat summary: You got {{ resultA }}, the computer got {{ resultB }}</div>
+    <div>Your new score: {{ playerA }}</div>
   </div>
 </template>
 

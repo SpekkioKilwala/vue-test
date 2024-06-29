@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
-import TuteTen from './components/TuteTen.vue';
-// import BasicRoller from './components/BasicRoller.vue'
+// import TuteTen from './components/TuteTen.vue';
+import BasicRoller from './components/BasicRoller.vue'
 </script>
 
 <template>
@@ -14,8 +14,8 @@ import TuteTen from './components/TuteTen.vue';
   </header>
 
   <main>
-    <!-- <BasicRoller /> -->
-    <TuteTen />
+    <BasicRoller />
+    <!-- <TuteTen /> -->
   </main>
 </template>
 
