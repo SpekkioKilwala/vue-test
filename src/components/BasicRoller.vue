@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { DiceRoll } from '@dice-roller/rpg-dice-roller'
 import { default as EloRank } from 'elo-rank'
 
@@ -8,11 +8,12 @@ import { default as EloRank } from 'elo-rank'
 const resultA = ref(0)
 const resultB = ref(0)
 
-const contestSummary = ref('')
-
 const elo = new EloRank(32);
-const playerA = ref(1000); // you
-const playerB = ref(1500); // infinite supply of Computer players
+const playerA = ref(900); // you
+const playerB = ref(1000); // infinite supply of Computer players
+
+const eloHistory = reactive([playerA.value])
+const average = array => array.reduce((a: number, b: number) => a + b) / array.length;
 
 // A single function should not oversee the rolling and the 0-1 rescaling
 // TODO: split it back up
@@ -33,6 +34,12 @@ function contest(rollA: string, rollB: string) {
   }
 }
 
+function play10k() {
+  for(let i = 0; i < 10000; i++) {
+    playRound()
+  }
+}
+
 function playRound() {
   const contestOutcome = contest('2d6', '2d6+2')
 
@@ -42,6 +49,8 @@ function playRound() {
   //update score, 1 if won 0 if lost
   playerA.value = elo.updateRating(expectedScoreA, contestOutcome, playerA.value);
   // playerB = elo.updateRating(expectedScoreB, 0, playerB);
+
+  eloHistory.push(playerA.value)
 }
 
 
@@ -50,8 +59,11 @@ function playRound() {
 <template>
   <div class="roller">
     <button @click="playRound">Roll them bones</button>
+    <button @click="play10k">Roll them bones 10,000 times</button>
     <div>Combat summary: You got {{ resultA }}, the computer got {{ resultB }}</div>
     <div>Your new score: {{ playerA }}</div>
+    <div>Last 5 scores: {{ eloHistory.slice(-5) }}</div>
+    <div>Average score: {{ average(eloHistory) }}</div>
   </div>
 </template>
 
