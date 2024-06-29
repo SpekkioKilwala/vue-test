@@ -9,7 +9,7 @@ const resultA = ref(0)
 const resultB = ref(0)
 
 const elo = new EloRank(32);
-const playerA = ref(900); // you
+const playerA = ref(1080); // you
 const playerB = ref(1000); // infinite supply of Computer players
 
 const eloHistory = reactive([playerA.value])
@@ -41,7 +41,7 @@ function play10k() {
 }
 
 function playRound() {
-  const contestOutcome = contest('2d6', '2d6+2')
+  const contestOutcome = contest('2d6+2', '2d6')
 
   let expectedScoreA = elo.getExpected(playerA.value, playerB.value);
   let expectedScoreB = elo.getExpected(playerB.value, playerA.value);
