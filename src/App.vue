@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
-
+import DataTest from './components/DataTest.vue'
 </script>
 
 <template>
@@ -13,7 +13,7 @@ import HelloWorld from './components/HelloWorld.vue'
   </header>
 
   <main>
-
+    <DataTest />
 
   </main>
 </template>
