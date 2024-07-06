@@ -14,6 +14,8 @@ import TheWelcome from './components/TheWelcome.vue'
 
   <main>
     <TheWelcome />
+
+
   </main>
 </template>
 
@@ -44,4 +46,5 @@ header {
     flex-wrap: wrap;
   }
 }
+
 </style>
