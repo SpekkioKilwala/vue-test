@@ -13,7 +13,7 @@ async function loginEmailPassword(email:string, password:string) {
   // Authenticate the user
   const user = await app.logIn(credentials);
   // 'App.currentUser' updates to match the logged in user
-  console.assert(user.id === app.currentUser.id);
+  console.assert(user.id === app.currentUser!.id);
   console.log(user)
   return user;
 }
