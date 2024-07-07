@@ -19,7 +19,9 @@ async function loginEmailPassword(email:string, password:string) {
 }
 
 async function getToken() {
+  token.value = 'waiting...';
   const user = await loginEmailPassword('jonmwalsh@gmail.com', VITE_DATA_PASS);
+  token.value = user.accessToken || "null";
   return user.accessToken;
 }
 
@@ -27,8 +29,7 @@ async function getToken() {
 
 <template>
   <div>
-    Testing testing
-    <button type="button" @click="() => {token = getToken() || 'waiting'}">Get token?</button>
+    <button type="button" @click="getToken">Get token?</button>
     {{ token }}
   </div>
 </template>
