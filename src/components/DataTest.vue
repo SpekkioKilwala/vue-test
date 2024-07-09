@@ -41,7 +41,7 @@ var config = {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Request-Headers': '*',
-      'Authorization': `Bearer ${ token.value }`,
+      'Authorization': `Bearer <${ token.value }>`,
     },
     data: data
 };
