@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
-import DataTest from './components/DataTest.vue'
+import MiniForm from './components/MiniForm.vue'
 </script>
 
 <template>
@@ -13,7 +13,7 @@ import DataTest from './components/DataTest.vue'
   </header>
 
   <main>
-    <DataTest />
+    <MiniForm />
 
   </main>
 </template>
