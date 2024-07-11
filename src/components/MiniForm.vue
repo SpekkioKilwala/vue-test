@@ -4,8 +4,13 @@ import axios from 'axios';
 
 const responseDisplay = ref("no response yet")
 
+const _axios = axios.create({
+  baseURL: 'https://httpbin.org/',
+  headers: {'X-Custom-Header': 'custom header payload!'}
+})
+
 function postThing() {
-  axios.post('https://httpbin.org/post', {
+  _axios.post('/post', {
     firstName: 'Howell',
     lastName: 'Jenkins'
   })
