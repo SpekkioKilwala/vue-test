@@ -25,7 +25,8 @@ function postThing() {
   <div>
     <button type="button" @click="postThing">Press me</button>
   </div>
-  {{ responseDisplay }}
+  <div>{{ responseDisplay }}</div>
+  <div><input type="text"></div>
 </template>
 
 <style scoped>
