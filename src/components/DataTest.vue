@@ -3,6 +3,11 @@
   import * as Realm from "realm-web";
   import axios from 'axios';
 
+  // https://www.mongodb.com/docs/atlas/device-sdks/web/mongodb/#std-label-web-query-mongodb
+  const {
+    BSON: { ObjectId },
+  } = Realm;
+
   const { MODE, PROD, DEV, SSR, BASE_URL, VITE_DATA_PASS } = import.meta.env;
 
   const token = ref("unset");
@@ -56,6 +61,8 @@ async function firePost() {
         console.log(error);
     });
 }
+
+
 
 </script>
 
