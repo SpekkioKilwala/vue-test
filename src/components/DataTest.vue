@@ -60,10 +60,13 @@
         'Authorization': `Bearer <${ token.value }>`,
       },
       data: data
-  };
+  };  
 
-  async function firePost() {
-    console.log("do nothing")
+  async function getBread() {
+    const mongo = app.currentUser?.mongoClient("clusterFuffle");
+    const breads = mongo?.db("sandwiches").collection("breads");
+    const bread = await breads?.findOne({});
+    console.log("white bread: ", bread)
   }
 
 
@@ -76,7 +79,7 @@
     {{ token }}
   </div>
   <div>
-    <button type="button" @click="firePost">This will be fine</button>
+    <button type="button" @click="getBread">This will be fine</button>
     {{ res }}
   </div>
 </template>
