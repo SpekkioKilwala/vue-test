@@ -27,6 +27,15 @@
     return user;
   }
 
+  // token refresh
+  // https://www.mongodb.com/docs/atlas/device-sdks/web/authenticate/#std-label-web-authenticate
+  async function getValidAccessToken(user: Realm.User<globalThis.Realm.DefaultFunctionsFactory & globalThis.Realm.BaseFunctionsFactory, SimpleObject, globalThis.Realm.DefaultUserProfileData>) {
+  // An already logged in user's access token might be stale. To
+  // guarantee that the token is valid, refresh it if necessary.
+    await user.refreshAccessToken();
+    return user.accessToken;
+  }
+
   async function getToken() {
     token.value = 'waiting...';
     user = await loginEmailPassword('jonmwalsh@gmail.com', VITE_DATA_PASS);
